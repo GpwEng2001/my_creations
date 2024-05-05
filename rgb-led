@@ -31,12 +31,12 @@ def map(x, in_min, in_max, out_min, out_max):
 
 def duty_cycle_test(per):
     b_pwm.ChangeDutyCycle(per)
-    time.sleep(0.5)
+    time.sleep(2)
      
 
 start = 0
 stop = 100
-step = 5
+step = 20
 dc_test = [i for i in range(start, stop, step)]
 
 def complete():
