@@ -31,6 +31,7 @@ def map(x, in_min, in_max, out_min, out_max):
 
 def duty_cycle_test(per):
 	b_pwm.ChangeDutyCycle(per)
+     time.sleep(0.5)
 
 
 start = 0
