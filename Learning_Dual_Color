@@ -1,0 +1,32 @@
+#Learning pi commands in Python
+
+import RPi.GPIO as GPIO  
+import time
+
+#GPIO.setmode(GPIO.X)
+# BCM - The physical pin numbers as they are labeled on the Broadcom SOC(System on Chip) used in Raspberry Pi models. (GPIO24)
+# BOARD - The physical pin numbers as they are labeled on the GPIO header of the Raspberry Pi. (Pin 18)
+#Examples: The same pin in BCM is GPIO 24 whereas in BOARD it is 18
+
+GPIO.setmode(GPIO.BCM)
+
+#GPIO.setup(Pin number, direction)
+# Pin Number - physical pin number or BCM channel number of the GPIO pin you want to configure
+# Direction - GPIO.IN for input and GPIO.OUT for output.
+
+GPIO.setup(GPIO.18, GPIO.OUT) 
+GPIO.setup(GPIO.17, GPIO.OUT)
+
+'''
+Initial State:
+ - GPIO.LOW: Sets the initial state of the output to low (0 volts).
+ - GPIO.HIGH: Sets the initial state of the output to high (3.3 volts).
+
+Pull-up or Pull-down Resistors:
+ - GPIO.PUD_OFF: Disables the internal pull-up and pull-down resistors (default).
+ - GPIO.PUD_UP: Enables the internal pull-up resistor, which pulls the pin to a high logic level when it's not being driven low.
+ - GPIO.PUD_DOWN: Enables the internal pull-down resistor, which pulls the pin to a low logic level when it's not being driven high.
+'''
+
+GPIO.output(18, GPIO.HIGH)
+time.sleep(2)
