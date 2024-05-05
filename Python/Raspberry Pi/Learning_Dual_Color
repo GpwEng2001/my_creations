@@ -28,12 +28,24 @@ Pull-up or Pull-down Resistors:
  - GPIO.PUD_DOWN: Enables the internal pull-down resistor, which pulls the pin to a low logic level when it's not being driven high.
 '''
 
-#Turn on green light for 2 seconds
-GPIO.output(18, GPIO.HIGH)
-time.sleep(2)
-GPIO.output(18, GPIO.LOW)
+def light_it_up(t1, t2):
 
-#Turn on red light for 5 seconds
-GPIO.output(17, GPIO.HIGH)
-time.sleep(5)
-GPIO.output(17, GPIO.LOW)
+    #Turn on green light for t1 seconds
+    GPIO.output(18, GPIO.HIGH)
+    time.sleep(t1)
+    GPIO.output(18, GPIO.LOW)
+
+    #Turn on red light for t2 seconds
+    GPIO.output(17, GPIO.HIGH)
+    time.sleep(t2)
+    GPIO.output(17, GPIO.LOW)
+
+    return
+
+try:
+    #Run function
+    light_it_up(2,3)
+
+
+finally:
+    GPIO.cleanup()
