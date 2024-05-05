@@ -1,0 +1,60 @@
+#Practiing PWM with RGB led
+
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setmode(GPIO.BCM)
+
+#Setting Pins
+grn = 18
+red = 17
+blu = 27
+
+GPIO.setup(grn, GPIO.OUT)
+GPIO.setup(red, GPIO.OUT)
+GPIO.setup(blu, GPIO.OUT)
+
+#Define as PWM
+g_pwm = GPIO.PWM(grn, 2000)
+r_pwm = GPIO.PWM(red, 2000)
+b_pwm = GPIO.PWM(blu, 2000)
+
+#Start the lights off
+g_pwm.start(0)
+r_pwm.start(0)
+b_pwm.start(0)
+
+colors = (0xFF0000, 0x00FF00, 0x0000FF)  #Red Green Blue
+
+def map(x, in_min, in_max, out_min, out_max):
+	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+def duty_cycle_test(per):
+	b_pwm.ChangeDutyCycle(per)
+
+
+start = 0
+stop = 100
+step = 5
+dc_test = [i for i in range(start, stop, step)]
+
+def complete():
+    r_pwm.stop()
+    g_pwm.stop()
+    b_pwm.stop()
+    GPIO.output(red, GPIO.LOW)      # Turn off red light
+    GPIO.output(grn, GPIO.LOW)    # Turn off green light
+    GPIO.output(blu, GPIO.LOW)
+    GPIO.cleanup()
+
+
+if __name__ == "__main__":
+    try:
+        while True:
+            for i in dc_test:
+                duty_cycle_test(i)
+    except KeyboardInterrupt:
+        complete()
+
+  
+
