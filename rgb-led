@@ -17,7 +17,7 @@ GPIO.setup(blu, GPIO.OUT)
 #Define as PWM
 g_pwm = GPIO.PWM(grn, 2000)
 r_pwm = GPIO.PWM(red, 2000)
-b_pwm = GPIO.PWM(blu, 2000)
+b_pwm = GPIO.PWM(blu, 5000)
 
 #Start the lights off
 g_pwm.start(0)
