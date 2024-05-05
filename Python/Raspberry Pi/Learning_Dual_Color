@@ -14,8 +14,29 @@ GPIO.setmode(GPIO.BCM)
 # Pin Number - physical pin number or BCM channel number of the GPIO pin you want to configure
 # Direction - GPIO.IN for input and GPIO.OUT for output.
 
-GPIO.setup(18, GPIO.OUT) 
-GPIO.setup(17, GPIO.OUT)
+green = 18
+red = 17
+
+GPIO.setup(green, GPIO.OUT) 
+GPIO.setup(red, GPIO.OUT)
+
+#Define as Pulse Width Modulation (PWM)
+g_pwm = GPIO.PWM(green, 2000)  #2 
+r_pwm = GPIO.PWM(red, 2000)
+
+#Initilize the lights to start off (duty cycle = 0)
+g_pwm.start(0)
+r_pwm.start(0)
+
+
+''' 
+Hexidecimal Colors (00 - FF or 0 - 255)
+The first two digits representing the red component 
+The next two digits representing the green component
+The last two digits representing the blue component (Not possible for dual LED light)
+Ex: 0xFF00 = Red, 0x00FF = Green
+'''
+colors = (0xFF00,0x00FF,0x649b) #Red, Green and 100 parts red mixed with 155 parts green
 
 '''
 Initial State:
@@ -31,16 +52,17 @@ Pull-up or Pull-down Resistors:
 def light_it_up(t1, t2):
 
     #Turn on green light for t1 seconds
-    GPIO.output(18, GPIO.HIGH)
+    GPIO.output(green, GPIO.HIGH)
     time.sleep(t1)
-    GPIO.output(18, GPIO.LOW)
+    GPIO.output(green, GPIO.LOW)
 
     #Turn on red light for t2 seconds
-    GPIO.output(17, GPIO.HIGH)
+    GPIO.output(red, GPIO.HIGH)
     time.sleep(t2)
-    GPIO.output(17, GPIO.LOW)
+    GPIO.output(red, GPIO.LOW)
 
     return
+
 
 if __name__ == "__main__":
     try:

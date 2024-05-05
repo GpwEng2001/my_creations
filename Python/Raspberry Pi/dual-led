@@ -1,0 +1,62 @@
+#Learning pi commands in Python
+
+import RPi.GPIO as GPIO  
+import time
+
+#GPIO.setmode(GPIO.X)
+GPIO.setmode(GPIO.BCM)
+
+#GPIO.setup(Pin number, direction)
+green = 18
+red = 17
+
+GPIO.setup(green, GPIO.OUT) 
+GPIO.setup(red, GPIO.OUT)
+
+#Define as Pulse Width Modulation (PWM)
+g_pwm = GPIO.PWM(green, 2000)  #2 
+r_pwm = GPIO.PWM(red, 2000)
+
+#Initilize the lights to start off (duty cycle = 0)
+g_pwm.start(0)
+r_pwm.start(0)
+
+
+colors = (0xFF00,0x00FF,0x649b) #Red, Green and 100 parts red mixed with 155 parts green
+
+def map(x, in_min, in_max, out_min, out_max):
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+
+def change_color(col):
+    red_val = col >> 8     #bitwise SHIFT RIGHT operation - Shifts value over 8 positions
+    grn_val = col & 0x0FF  #bitwise AND operation - Takes what is only equal between the 2 values
+
+    #Scales the hex color value to a percentage for PWM input
+    red_val = map(red_val, 0, 255, 0, 100)  
+    grn_val = map(grn_val, 0, 255, 0, 100)
+
+    #Set the light to specified duty cycle percentage
+    r_pwm.ChangeDutyCycle(red_val)
+    g_pwm.ChangeDutyCycle(grn_val)
+
+    
+
+    return
+
+def loop():
+    while True:
+        for col in colors:
+            change_color(col)
+            time.sleep(1)
+
+
+if __name__ == "__main__":
+    try:
+        light_it_up(2,3) 
+
+    finally:
+        GPIO.cleanup()
+
+
+            
