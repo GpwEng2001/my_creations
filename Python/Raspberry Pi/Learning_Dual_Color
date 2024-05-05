@@ -42,10 +42,9 @@ def light_it_up(t1, t2):
 
     return
 
-try:
-    #Run function
-    light_it_up(2,3)
+if __name__ == "__main__":
+    try:
+        light_it_up(2,3) 
 
-
-finally:
-    GPIO.cleanup()
+    finally:
+        GPIO.cleanup()
