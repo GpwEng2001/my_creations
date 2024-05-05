@@ -51,12 +51,18 @@ def loop():
             time.sleep(1)
 
 
+def complete():
+    r_pwm.stop()
+    g_pwm.stop()
+    GPIO.output(red, GPIO.LOW)      # Turn off red light
+    GPIO.output(green, GPIO.LOW)    # Turn off green light
+    GPIO.cleanup()
+
 if __name__ == "__main__":
     try:
-        light_it_up(2,3) 
-
-    finally:
-        GPIO.cleanup()
+        loop()
+    except KeyboardInterrupt:
+        complete()
 
 
             
